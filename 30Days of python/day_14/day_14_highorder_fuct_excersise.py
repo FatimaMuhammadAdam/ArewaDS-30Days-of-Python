@@ -93,3 +93,72 @@ def get_string_lists(arr):
 
 
 print(get_string_lists(numbers))
+
+#Use reduce to sum all the numbers in the numbers list.
+#let import the reduce modules from functools and others labaries
+from functools import reduce
+import sys
+
+sys.path.append('data')
+# noinspection PyUnresolvedReferences
+from countries import country_list
+# noinspection PyUnresolvedReferences
+from countries_data import data
+import pprint
+
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+sum = reduce(lambda x, y: x + y, numbers)
+print(sum)
+
+#Use reduce to concatenate all the countries and to produce this sentence: Estonia, Finland, Sweden, Denmark, Norway, and Iceland are north European countries
+countries = reduce(lambda x, y: x + ', ' + y, countries[:-1]) + ', and ' + countries[-1] + ' are north European countries.'
+print(countries)
+#Declare a function called categorize_countries that returns a list of countries with some common pattern (you can find the countries list in this repository as countries.js(eg 'land', 'ia', 'island', 'stan')).
+
+keys = []
+keys = [i[0] for i in country_list if i[0] not in keys]
+
+
+def countCountry(csv1):
+    return sum([True for i in country_list if i[0].startswith(csv1)])
+
+
+vals = [countCountry(l) for l in keys]
+
+print(dict(zip(keys, vals)))
+#Declare a get_first_ten_countries function - it returns a list of first ten countries from the countries.js list in the data folde
+def get_first_ten():
+    return country_list[:10]
+
+#Declare a get_last_ten_countries function that returns the last ten countries in the countries list.
+def get_last_ten():
+    return country_list[-1:-11:-1]
+#Exercises: Level 3
+#Use the countries_data.py (https://github.com/Asabeneh/30-Days-Of-Python/blob/master/data/countries-data.py) file and follow the tasks below:
+
+# Level 3
+
+pprint.pprint(sorted(data, key=lambda y: y['name']))
+pprint.pprint(sorted(data, key=lambda u: u['capital']))
+pprint.pprint(sorted(data, key=lambda x: x['population']))
+
+total_languages_initial = []
+for u in data:
+    total_languages_initial.extend(u["languages"])
+# noinspection DuplicatedCode
+counts = {}
+for i in total_languages_initial:
+    counts[i] = counts.get(i, 0) + 1
+
+
+def sort_dict_by_value(d, reverse=False):
+    return dict(sorted(d.items(), key=lambda x: x[1], reverse=reverse))
+
+
+counts = sort_dict_by_value(counts, True)
+final_dict_1 = {}
+for i in list(counts.items())[:10]:
+    final_dict_1[list(i)[0]] = list(i)[1]
+pprint.pprint(sorted(final_dict_1))
+
+pprint.pprint(list(sorted(data, key=lambda x: x['population'], reverse=True))[:10])
