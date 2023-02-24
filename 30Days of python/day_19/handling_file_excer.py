@@ -34,20 +34,6 @@ def counter(fname):
     print("Number of lines in text file: ", num_lines)
 
 
-""""
-print("Obama:")
-counter("data\obama_speech.txt")
-print()
-print("Michelle Obama:")
-counter("data\michelle_obama_speech.txt")
-print()
-print("Trump:")
-counter("data\donald_speech.txt")
-print()
-print("Melania Trump:")
-counter("data\melina_trump_speech.txt")
-"""
-
 def sort_dict_by_value(d, reverse=False):
     return dict(sorted(d.items(), key=lambda x: x[1], reverse=reverse))
 
