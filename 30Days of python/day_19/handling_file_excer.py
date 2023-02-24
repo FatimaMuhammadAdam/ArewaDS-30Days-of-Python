@@ -83,3 +83,31 @@ def most_spoken_languages(fname, value):
 
 # print(most_spoken_languages(fname="data\countries_data.json", value=3))
 # print(most_populated_countries(fname="data\countries_data.json", value=3))
+
+#level 2
+
+def list_of_words(fname):
+    output = []
+    with open(fname, "r", encoding="UTF8") as file:
+        for line in file:
+            for word in line.split():
+                output.append(word)
+    return list(set(output))
+
+
+def check_email(word):
+    if re.fullmatch(r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b", word):
+        return True
+    else:
+        return False
+
+
+def extract_emails(fname):
+    words = list_of_words(fname)
+    email_list = []
+
+    for word in words:
+        if check_email(word):
+            email_list.append(word)
+
+    return email_list
