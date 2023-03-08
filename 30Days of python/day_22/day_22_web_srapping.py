@@ -48,3 +48,33 @@ json_df = df.to_json(oreint = "record")
 with open("data.json", "w") as outfile:
     outfile.write(json_df)
     
+#quetion three
+url = "https://en.wikipedia.org/wiki/List_of_presidents_of_the_United_States"
+response = requests.get(url)
+
+# Parse the HTML content using BeautifulSoup
+soup = BeautifulSoup(response.content, "html.parser")
+
+# Find the table containing the data
+table = soup.find("table", {"class": "wikitable"})
+
+# Find all rows in the table
+rows = table.find_all("tr")
+
+# Initialize an empty list to store the data
+presidents = []
+
+# Iterate over the rows and extract the data
+for row in rows[1:]:
+    cells = row.find_all("td")
+    president = {}
+    president["number"] = cells[0].text.strip()
+    president["name"] = cells[1].text.strip()
+    president["start_date"] = cells[2].text.strip()
+    president["end_date"] = cells[3].text.strip()
+    president["party"] = cells[4].text.strip()
+    presidents.append(president)
+
+# Store the data as a JSON file
+with open("presidents.json", "w") as outfile:
+    json.dump(presidents, outfile)
